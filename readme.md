@@ -36,3 +36,11 @@ docker exec -t consul-1 consul members
 
 
 mvn spring-boot:run -Dspring-boot.run.profiles=zone1
+
+## Distributed Config 
+
+* dependency spring-cloud-starter-consul-config
+* create config folder in consul
+* Eg : config/account-service,zone1/data
+* add the application.yml configs to that yml
+* it will by default use that file, ie app will work even if the classpath application.yml is not there
