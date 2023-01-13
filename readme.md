@@ -28,3 +28,11 @@ When running sample applications we can test more advanced scenario. We may leve
 
 ## Description
 Detailed description can be found here: [Microservices with Spring Boot, Spring Cloud Gateway and Consul Cluster](https://piotrminkowski.com/2019/11/06/microservices-with-spring-boot-spring-cloud-gateway-and-consul-cluster/)
+# --add-host=host.docker.internal:host-gateway needed for the consul in docker to connect to localhost
+docker run -d --name consul-1 -p 8500:8500 -e CONSUL_BIND_INTERFACE=eth0 --add-host=host.docker.internal:host-gateway consul  
+docker run -d --name consul-2 -p 8501:8500 -e CONSUL_BIND_INTERFACE=eth0 --add-host=host.docker.internal:host-gateway consul agent -dev -join=172.17.0.2
+docker run -d --name consul-3 -p 8502:8500 -e CONSUL_BIND_INTERFACE=eth0 --add-host=host.docker.internal:host-gateway consul agent -dev -join=172.17.0.2
+docker exec -t consul-1 consul members
+
+
+mvn spring-boot:run -Dspring-boot.run.profiles=zone1
